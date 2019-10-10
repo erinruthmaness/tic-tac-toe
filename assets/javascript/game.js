@@ -14,138 +14,162 @@ let pageBoard = //gets whatever letter is typed into each box on the page
     [lowLeft.innerText, lowMid.innerText, lowRight.innerText]];
 
 let Xturn = true; //set to false when it's O's turn
+let compGame = false; //set to true if playComp gets clicked
 let gameOver = false;
 
-function squareClick(square) {
+function compClicked() {
+    compGame = true;
+}
+
+function squareClick(square) { //when a square gets clicked an X or O appears
     console.log("you clicked " + square);
     if (!gameOver) {
         switch (square) {
             case "top-left":
                 if (topLeft.innerText === "" && Xturn) {
-                    topLeft.innerText = "X";
                     pageBoard[0][0] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (topLeft.innerText === "" && !Xturn) {
-                    topLeft.innerText = "O";
+                else if (topLeft.innerText === "" && !Xturn && !compGame) {
                     pageBoard[0][0] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "top-middle":
                 if (topMid.innerText === "" && Xturn) {
-                    topMid.innerText = "X";
                     pageBoard[0][1] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (topMid.innerText === "" && !Xturn) {
-                    topMid.innerText = "O";
+                else if (topMid.innerText === "" && !Xturn && !compGame) {
                     pageBoard[0][1] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "top-right":
                 if (topRight.innerText === "" && Xturn) {
-                    topRight.innerText = "X";
                     pageBoard[0][2] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (topRight.innerText === "" && !Xturn) {
-                    topRight.innerText = "O";
+                else if (topRight.innerText === "" && !Xturn && !compGame) {
                     pageBoard[0][2] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "middle-left":
                 if (midLeft.innerText === "" && Xturn) {
-                    midLeft.innerText = "X";
                     pageBoard[1][0] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (midLeft.innerText === "" && !Xturn) {
-                    midLeft.innerText = "O";
+                else if (midLeft.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[1][0] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "middle-middle":
                 if (midMid.innerText === "" && Xturn) {
-                    midMid.innerText = "X";
                     pageBoard[1][1] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (midMid.innerText === "" && !Xturn) {
-                    midMid.innerText = "O";
+                else if (midMid.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[1][1] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "middle-right":
                 if (midRight.innerText === "" && Xturn) {
-                    midRight.innerText = "X";
                     pageBoard[1][2] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (midRight.innerText === "" && !Xturn) {
-                    midRight.innerText = "O";
+                else if (midRight.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[1][2] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "bottom-left":
                 if (lowLeft.innerText === "" && Xturn) {
-                    lowLeft.innerText = "X";
                     pageBoard[2][0] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (lowLeft.innerText === "" && !Xturn) {
-                    lowLeft.innerText = "O";
+                else if (lowLeft.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[2][0] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "bottom-middle":
                 if (lowMid.innerText === "" && Xturn) {
-                    lowMid.innerText = "X";
                     pageBoard[2][1] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (lowMid.innerText === "" && !Xturn) {
-                    lowMid.innerText = "O";
+                else if (lowMid.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[2][1] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             case "bottom-right":
                 if (lowRight.innerText === "" && Xturn) {
-                    lowRight.innerText = "X";
                     pageBoard[2][2] = "X";
+                    boardCompare();
                     Xturn = false;
+                    if (compGame) {
+                        compTurn();
+                    }
                 }
-                else if (lowRight.innerText === "" && !Xturn) {
-                    lowRight.innerText = "O";
+                else if (lowRight.innerText === "" && !Xturn  && !compGame) {
                     pageBoard[2][2] = "O";
+                    boardCompare();
                     Xturn = true;
                 }
-                findWin();
                 break;
             default:
                 console.log("invalid click");
         }
-    } else {
+    }  else {
         console.log("game over!");
     }
 }
 
 function findWin() {
+    console.log("here goes findWin");
     //check for horizontal wins
     if (((pageBoard[0][0] === "X") && (pageBoard[0][1] === "X") && (pageBoard[0][2] === "X"))
         || ((pageBoard[1][0] === "X") && (pageBoard[1][1] === "X") && (pageBoard[1][2] === "X"))
@@ -185,6 +209,19 @@ function findWin() {
     }
 }
 
+function boardCompare() {
+    topLeft.innerText = pageBoard[0][0];
+    topMid.innerText = pageBoard[0][1];
+    topRight.innerText = pageBoard[0][2];
+    midLeft.innerText = pageBoard[1][0];
+    midMid.innerText = pageBoard[1][1];
+    midRight.innerText = pageBoard[1][2];
+    lowLeft.innerText = pageBoard[2][0];
+    lowMid.innerText = pageBoard[2][1];
+    lowRight.innerText = pageBoard[2][2];
+    findWin();
+}
+
 function resetGame() {
     gameOver = false;
     for (let i = 0; i < pageBoard.length; i++) {
@@ -192,13 +229,22 @@ function resetGame() {
             pageBoard[i][j] = "";
         }
     }
-    topLeft.innerText = "";
-    topMid.innerText = "";
-    topRight.innerText = "";
-    midLeft.innerText  = "";
-    midMid.innerText  = "";
-    midRight.innerText  = "";
-    lowLeft.innerText  = "";
-    lowMid.innerText  = "";
-    lowRight.innerText  = "";
+    boardCompare();
+}
+
+function compTurn() {
+    let row = findRandom();
+    let column = findRandom();
+    if (pageBoard[row][column] === "") {
+        pageBoard[row][column] = "O";
+    } else {
+        compTurn();
+    }
+    setTimeout(function(){boardCompare();}, 1000)
+    Xturn = true;
+}
+
+function findRandom() {
+    console.log("find random!");
+    return Math.floor(Math.random() * Math.floor(3));
 }
