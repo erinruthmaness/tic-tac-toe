@@ -16,6 +16,7 @@ let pageBoard = //gets whatever letter is typed into each box on the page
 let Xturn = true; //set to false when it's O's turn
 let compGame = false; //set to true if playComp gets clicked
 let gameOver = false;
+let isItCat = false;
 
 function compClicked() {
     compGame = true;
@@ -79,7 +80,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (midLeft.innerText === "" && !Xturn  && !compGame) {
+                else if (midLeft.innerText === "" && !Xturn && !compGame) {
                     pageBoard[1][0] = "O";
                     boardCompare();
                     Xturn = true;
@@ -94,7 +95,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (midMid.innerText === "" && !Xturn  && !compGame) {
+                else if (midMid.innerText === "" && !Xturn && !compGame) {
                     pageBoard[1][1] = "O";
                     boardCompare();
                     Xturn = true;
@@ -109,7 +110,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (midRight.innerText === "" && !Xturn  && !compGame) {
+                else if (midRight.innerText === "" && !Xturn && !compGame) {
                     pageBoard[1][2] = "O";
                     boardCompare();
                     Xturn = true;
@@ -124,7 +125,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (lowLeft.innerText === "" && !Xturn  && !compGame) {
+                else if (lowLeft.innerText === "" && !Xturn && !compGame) {
                     pageBoard[2][0] = "O";
                     boardCompare();
                     Xturn = true;
@@ -139,7 +140,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (lowMid.innerText === "" && !Xturn  && !compGame) {
+                else if (lowMid.innerText === "" && !Xturn && !compGame) {
                     pageBoard[2][1] = "O";
                     boardCompare();
                     Xturn = true;
@@ -154,7 +155,7 @@ function squareClick(square) { //when a square gets clicked an X or O appears
                         compTurn();
                     }
                 }
-                else if (lowRight.innerText === "" && !Xturn  && !compGame) {
+                else if (lowRight.innerText === "" && !Xturn && !compGame) {
                     pageBoard[2][2] = "O";
                     boardCompare();
                     Xturn = true;
@@ -163,13 +164,12 @@ function squareClick(square) { //when a square gets clicked an X or O appears
             default:
                 console.log("invalid click");
         }
-    }  else {
+    } else {
         console.log("game over!");
     }
 }
 
 function findWin() {
-    console.log("here goes findWin");
     //check for horizontal wins
     if (((pageBoard[0][0] === "X") && (pageBoard[0][1] === "X") && (pageBoard[0][2] === "X"))
         || ((pageBoard[1][0] === "X") && (pageBoard[1][1] === "X") && (pageBoard[1][2] === "X"))
@@ -198,13 +198,32 @@ function findWin() {
     }
     //check for diagonal wins
     else if (((pageBoard[0][0] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][2] === "X"))
-    || ((pageBoard[0][2] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][0] === "X"))){
+        || ((pageBoard[0][2] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][0] === "X"))) {
         console.log("X wins!");
         gameOver = true;
     }
     else if (((pageBoard[0][0] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][2] === "O"))
-    || ((pageBoard[0][2] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][0] === "O"))) {
+        || ((pageBoard[0][2] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][0] === "O"))) {
         console.log("O wins!");
+        gameOver = true;
+    }
+    //check for cat game
+    else {
+        catCheck();
+    }
+}
+
+function catCheck() {
+    isItCat = true;
+    for (let i = 0; i < pageBoard.length; i++) {
+        for (let j = 0; j < pageBoard[i].length; j++) {
+            if (pageBoard[i][j] === "") {
+                isItCat = false;
+            }
+        }
+    }
+    if (isItCat) {
+        console.log("cat game!")
         gameOver = true;
     }
 }
@@ -224,6 +243,8 @@ function boardCompare() {
 
 function resetGame() {
     gameOver = false;
+    compGame = false;
+    Xturn = true;
     for (let i = 0; i < pageBoard.length; i++) {
         for (let j = 0; j < pageBoard[i].length; j++) {
             pageBoard[i][j] = "";
@@ -233,18 +254,50 @@ function resetGame() {
 }
 
 function compTurn() {
-    let row = findRandom();
-    let column = findRandom();
-    if (pageBoard[row][column] === "") {
-        pageBoard[row][column] = "O";
-    } else {
-        compTurn();
+    if (!gameOver) {
+        smartMove();
+        setTimeout(function () { boardCompare(); }, 1000)
+        Xturn = true;
     }
-    setTimeout(function(){boardCompare();}, 1000)
-    Xturn = true;
 }
 
 function findRandom() {
     console.log("find random!");
-    return Math.floor(Math.random() * Math.floor(3));
+    let row = Math.floor(Math.random() * Math.floor(3));
+    let column = Math.floor(Math.random() * Math.floor(3));
+    if (pageBoard[row][column] === "") {
+        pageBoard[row][column] = "O";
+    } else {
+        findRandom();
+    }
+}
+
+function smartMove() {
+    //checks one row at a time & stops X from going straight across
+    for (let i = 0; i < pageBoard.length; i++) {
+        if (pageBoard[i][1] === "X" && pageBoard[i][0] === "X" && pageBoard[i][2] === "") {
+            pageBoard[i][2] = "O";
+            console.log("they tried it on row " + i)
+            return;
+        } else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "" && pageBoard[i][2] === "X") {
+            pageBoard[i][0] = "O";
+            console.log("they tried it on row " + i)
+            return;
+        }
+        //also checks if O can win
+        else if (pageBoard[i][1] === "O" && pageBoard[i][0] === "O" && pageBoard[i][2] === "") {
+            pageBoard[i][2] = "O";
+            console.log("kicked ass on row " + i)
+            return;
+        } else if (pageBoard[i][1] === "O" && pageBoard[i][0] === "" && pageBoard[i][2] === "O") {
+            pageBoard[i][0] = "O";
+            console.log("kicked ass on row " + i)
+            return;
+        }
+
+    }
+    //coming soon: stop X from going straight down
+    
+    //if nothing has made it return yet, call findRandom();
+    findRandom();
 }
