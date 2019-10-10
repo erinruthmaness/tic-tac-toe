@@ -19,8 +19,11 @@ let gameOver = false;
 let isItCat = false;
 
 function compClicked() {
-    compGame = true;
-    document.getElementById("game-status").innerText = "You're playing the computer";
+    if (!compGame) {
+        resetGame();
+        compGame = true;
+        document.getElementById("game-status").innerText = "You're playing the computer";
+    }
 }
 
 function squareClick(square) { //when a square gets clicked an X or O appears
@@ -276,31 +279,80 @@ function findRandom() {
 }
 
 function smartMove() {
-    //checks one row at a time & stops X from going straight across
-    for (let i = 0; i < pageBoard.length; i++) {
-        if (pageBoard[i][1] === "X" && pageBoard[i][0] === "X" && pageBoard[i][2] === "") {
-            pageBoard[i][2] = "O";
-            console.log("they tried it on row " + i)
-            return;
-        } else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "" && pageBoard[i][2] === "X") {
-            pageBoard[i][0] = "O";
-            console.log("they tried it on row " + i)
-            return;
+    //checks if O can win diagonally
+    if (pageBoard[0][0] === "O" && pageBoard[1][1] === "O" && pageBoard[2][2] === "") {
+        pageBoard[2][2] = "O";
+        console.log("diagonal win y'all")
+        return;
+    } else if (pageBoard[0][2] === "O" && pageBoard[1][1] === "O" && pageBoard[2][0] === "") {
+        pageBoard[2][0] = "O";
+        console.log("diagonal win y'all")
+        return;
+    } else if ((pageBoard[0][0] === "O" && pageBoard[1][1] === "" && pageBoard[2][2] === "O")
+    || (pageBoard[0][2] === "O" && pageBoard[1][1] === "" && pageBoard[2][0] === "O")) {
+        pageBoard[1][1] = "O";
+        console.log("diagonal win y'all")
+        return;
+    } else if (pageBoard[0][0] === "" && pageBoard[1][1] === "O" && pageBoard[2][2] === "O") {
+        pageBoard[0][0] = "O";
+        console.log("diagonal win y'all")
+        return;
+    } else if (pageBoard[0][2] === "" && pageBoard[1][1] === "O" && pageBoard[2][0] === "O") {
+        pageBoard[0][2] = "O";
+        console.log("diagonal win y'all")
+        return;
+    } else {
+        for (let i = 0; i < pageBoard.length; i++) {
+            //checks if O can win horizontally
+            if (pageBoard[i][0] === "O" && pageBoard[i][1] === "O" && pageBoard[i][2] === "") {
+                pageBoard[i][2] = "O";
+                console.log("kicked ass on row " + i)
+                return;
+            } else if (pageBoard[i][0] === "" && pageBoard[i][1] === "O" && pageBoard[i][2] === "O") {
+                pageBoard[i][0] = "O";
+                console.log("kicked ass on row " + i)
+                return;
+            } else if (pageBoard[i][0] === "O" && pageBoard[i][1] === "" && pageBoard[i][2] === "O") {
+                pageBoard[i][1] = "O";
+                console.log("kicked ass on row " + i)
+                return;
+            }
+            //checks if O can win vertically
+            else if (pageBoard[0][i] === "O" && pageBoard[1][i] === "O" && pageBoard[2][i] === "") {
+                pageBoard[2][i] = "O";
+                console.log("kicked ass on column " + i)
+                return;
+            } else if (pageBoard[0][i] === "" && pageBoard[1][i] === "O" && pageBoard[2][i] === "O") {
+                pageBoard[0][i] = "O";
+                console.log("kicked ass on column " + i)
+                return;
+            } else if (pageBoard[0][i] === "O" && pageBoard[1][i] === "" && pageBoard[2][i] === "O") {
+                pageBoard[1][i] = "O";
+                console.log("kicked ass on column " + i)
+                return;
+            }
+            //stops X from going straight across
+            else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "X" && pageBoard[i][2] === "") {
+                pageBoard[i][2] = "O";
+                console.log("they tried it on row " + i)
+                return;
+            } else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "" && pageBoard[i][2] === "X") {
+                pageBoard[i][0] = "O";
+                console.log("they tried it on row " + i)
+                return;
+            }
+            //stop X from going straight down
+            else if (pageBoard[1][i] === "X" && pageBoard[0][i] === "X" && pageBoard[2][i] === "") {
+                pageBoard[2][i] = "O";
+                console.log("they tried it on column " + i)
+                return;
+            } else if (pageBoard[1][i] === "X" && pageBoard[0][i] === "" && pageBoard[2][i] === "X") {
+                pageBoard[0][i] = "O";
+                console.log("they tried it on column " + i)
+                return;
+            }
         }
-        //also checks if O can win
-        else if (pageBoard[i][1] === "O" && pageBoard[i][0] === "O" && pageBoard[i][2] === "") {
-            pageBoard[i][2] = "O";
-            console.log("kicked ass on row " + i)
-            return;
-        } else if (pageBoard[i][1] === "O" && pageBoard[i][0] === "" && pageBoard[i][2] === "O") {
-            pageBoard[i][0] = "O";
-            console.log("kicked ass on row " + i)
-            return;
-        }
-
     }
-    //coming soon: stop X from going straight down
-
     //if nothing has made it return yet, call findRandom();
     findRandom();
 }
