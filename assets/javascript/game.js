@@ -289,7 +289,7 @@ function smartMove() {
         console.log("diagonal win y'all")
         return;
     } else if ((pageBoard[0][0] === "O" && pageBoard[1][1] === "" && pageBoard[2][2] === "O")
-    || (pageBoard[0][2] === "O" && pageBoard[1][1] === "" && pageBoard[2][0] === "O")) {
+        || (pageBoard[0][2] === "O" && pageBoard[1][1] === "" && pageBoard[2][0] === "O")) {
         pageBoard[1][1] = "O";
         console.log("diagonal win y'all")
         return;
@@ -352,6 +352,29 @@ function smartMove() {
                 return;
             }
         }
+    }
+    //if it hasn't returned yet, check if X can win diagonally and stop it
+    if (pageBoard[0][0] === "X" && pageBoard[1][1] === "X" && pageBoard[2][2] === "") {
+        pageBoard[2][2] = "O";
+        console.log("they made a diagonal attempt")
+        return;
+    } else if (pageBoard[0][2] === "X" && pageBoard[1][1] === "X" && pageBoard[2][0] === "") {
+        pageBoard[2][0] = "O";
+        console.log("they made a diagonal attempt")
+        return;
+    } else if ((pageBoard[0][0] === "X" && pageBoard[1][1] === "" && pageBoard[2][2] === "X")
+        || (pageBoard[0][2] === "X" && pageBoard[1][1] === "" && pageBoard[2][0] === "X")) {
+        pageBoard[1][1] = "O";
+        console.log("they made a diagonal attempt")
+        return;
+    } else if (pageBoard[0][0] === "" && pageBoard[1][1] === "X" && pageBoard[2][2] === "X") {
+        pageBoard[0][0] = "O";
+        console.log("they made a diagonal attempt")
+        return;
+    } else if (pageBoard[0][2] === "" && pageBoard[1][1] === "X" && pageBoard[2][0] === "X") {
+        pageBoard[0][2] = "O";
+        console.log("they made a diagonal attempt")
+        return;
     }
     //if nothing has made it return yet, call findRandom();
     findRandom();
