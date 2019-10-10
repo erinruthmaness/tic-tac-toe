@@ -306,47 +306,55 @@ function smartMove() {
             //checks if O can win horizontally
             if (pageBoard[i][0] === "O" && pageBoard[i][1] === "O" && pageBoard[i][2] === "") {
                 pageBoard[i][2] = "O";
-                console.log("kicked ass on row " + i)
+                console.log("stopped ya on row " + i)
                 return;
             } else if (pageBoard[i][0] === "" && pageBoard[i][1] === "O" && pageBoard[i][2] === "O") {
                 pageBoard[i][0] = "O";
-                console.log("kicked ass on row " + i)
+                console.log("stopped ya on row " + i)
                 return;
             } else if (pageBoard[i][0] === "O" && pageBoard[i][1] === "" && pageBoard[i][2] === "O") {
                 pageBoard[i][1] = "O";
-                console.log("kicked ass on row " + i)
+                console.log("stopped ya on row " + i)
                 return;
             }
             //checks if O can win vertically
             else if (pageBoard[0][i] === "O" && pageBoard[1][i] === "O" && pageBoard[2][i] === "") {
                 pageBoard[2][i] = "O";
-                console.log("kicked ass on column " + i)
+                console.log("stopped ya on column " + i)
                 return;
             } else if (pageBoard[0][i] === "" && pageBoard[1][i] === "O" && pageBoard[2][i] === "O") {
                 pageBoard[0][i] = "O";
-                console.log("kicked ass on column " + i)
+                console.log("stopped ya on column " + i)
                 return;
             } else if (pageBoard[0][i] === "O" && pageBoard[1][i] === "" && pageBoard[2][i] === "O") {
                 pageBoard[1][i] = "O";
-                console.log("kicked ass on column " + i)
+                console.log("stopped ya on column " + i)
                 return;
             }
             //stops X from going straight across
-            else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "X" && pageBoard[i][2] === "") {
+            else if (pageBoard[i][0] === "X" && pageBoard[i][1] === "X" && pageBoard[i][2] === "") {
                 pageBoard[i][2] = "O";
                 console.log("they tried it on row " + i)
                 return;
-            } else if (pageBoard[i][1] === "X" && pageBoard[i][0] === "" && pageBoard[i][2] === "X") {
+            } else if (pageBoard[i][0] === "" && pageBoard[i][1] === "X" && pageBoard[i][2] === "X") {
                 pageBoard[i][0] = "O";
                 console.log("they tried it on row " + i)
                 return;
-            }
+            } else if (pageBoard[i][0] === "X" && pageBoard[i][1] === "" && pageBoard[i][2] === "X") {
+                pageBoard[i][1] = "O";
+                console.log("they tried it on row " + i)
+                return;
+            } 
             //stop X from going straight down
-            else if (pageBoard[1][i] === "X" && pageBoard[0][i] === "X" && pageBoard[2][i] === "") {
+            else if (pageBoard[0][i] === "X" && pageBoard[1][i] === "X" && pageBoard[2][i] === "") {
                 pageBoard[2][i] = "O";
                 console.log("they tried it on column " + i)
                 return;
-            } else if (pageBoard[1][i] === "X" && pageBoard[0][i] === "" && pageBoard[2][i] === "X") {
+            } else if (pageBoard[0][i] === "" && pageBoard[1][i] === "X" && pageBoard[2][i] === "X") {
+                pageBoard[0][i] = "O";
+                console.log("they tried it on column " + i)
+                return;
+            } else if (pageBoard[0][i] === "X" && pageBoard[1][i] === "" && pageBoard[2][i] === "X") {
                 pageBoard[0][i] = "O";
                 console.log("they tried it on column " + i)
                 return;
