@@ -355,7 +355,7 @@ function smartMove() {
                 console.log("they tried it on column " + i)
                 return;
             } else if (pageBoard[0][i] === "X" && pageBoard[1][i] === "" && pageBoard[2][i] === "X") {
-                pageBoard[0][i] = "O";
+                pageBoard[1][i] = "O";
                 console.log("they tried it on column " + i)
                 return;
             }
