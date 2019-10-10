@@ -2,7 +2,7 @@ h1 {
     text-align: center;
 }
 
-#buttons, #game-status {
+#buttons, #game-status, #scoreboard {
     margin: 0 auto;
     text-align: center;
 }

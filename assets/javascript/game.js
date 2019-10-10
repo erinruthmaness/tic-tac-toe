@@ -17,6 +17,14 @@ let Xturn = true; //set to false when it's O's turn
 let compGame = false; //set to true if playComp gets clicked
 let gameOver = false;
 let isItCat = false;
+let Xscore = 0;
+let Oscore = 0;
+let catGames = 0;
+
+document.getElementById("x-wins").innerText = Xscore;
+document.getElementById("o-wins").innerText = Oscore;
+document.getElementById("cat-games").innerText = catGames;
+
 
 function compClicked() {
     if (!compGame) {
@@ -179,12 +187,16 @@ function findWin() {
         || ((pageBoard[1][0] === "X") && (pageBoard[1][1] === "X") && (pageBoard[1][2] === "X"))
         || ((pageBoard[2][0] === "X") && (pageBoard[2][1] === "X") && (pageBoard[2][2] === "X"))) {
         document.getElementById("game-status").innerText = "X wins!";
+        Xscore++;
+        document.getElementById("x-wins").innerText = Xscore;
         gameOver = true;
     }
     else if (((pageBoard[0][0] === "O") && (pageBoard[0][1] === "O") && (pageBoard[0][2] === "O"))
         || ((pageBoard[1][0] === "O") && (pageBoard[1][1] === "O") && (pageBoard[1][2] === "O"))
         || ((pageBoard[2][0] === "O") && (pageBoard[2][1] === "O") && (pageBoard[2][2] === "O"))) {
         document.getElementById("game-status").innerText = "O wins!";
+        Oscore++;
+        document.getElementById("o-wins").innerText = Oscore;
         gameOver = true;
     }
     //check for vertical wins    
@@ -192,23 +204,31 @@ function findWin() {
         || ((pageBoard[0][1] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][1] === "X"))
         || ((pageBoard[0][2] === "X") && (pageBoard[1][2] === "X") && (pageBoard[2][2] === "X"))) {
         document.getElementById("game-status").innerText = "X wins!";
+        Xscore++;
+        document.getElementById("x-wins").innerText = Xscore;
         gameOver = true;
     }
     else if (((pageBoard[0][0] === "O") && (pageBoard[1][0] === "O") && (pageBoard[2][0] === "O"))
         || ((pageBoard[0][1] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][1] === "O"))
         || ((pageBoard[0][2] === "O") && (pageBoard[1][2] === "O") && (pageBoard[2][2] === "O"))) {
         document.getElementById("game-status").innerText = "O wins!";
+        Oscore++;
+        document.getElementById("o-wins").innerText = Oscore;
         gameOver = true;
     }
     //check for diagonal wins
     else if (((pageBoard[0][0] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][2] === "X"))
         || ((pageBoard[0][2] === "X") && (pageBoard[1][1] === "X") && (pageBoard[2][0] === "X"))) {
         document.getElementById("game-status").innerText = "X wins!";
+        Xscore++;
+        document.getElementById("x-wins").innerText = Xscore;
         gameOver = true;
     }
     else if (((pageBoard[0][0] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][2] === "O"))
         || ((pageBoard[0][2] === "O") && (pageBoard[1][1] === "O") && (pageBoard[2][0] === "O"))) {
         document.getElementById("game-status").innerText = "O wins!";
+        Oscore++
+        document.getElementById("o-wins").innerText = Oscore;
         gameOver = true;
     }
     //check for cat game
@@ -228,6 +248,8 @@ function catCheck() {
     }
     if (isItCat) {
         document.getElementById("game-status").innerText = "Cat game!";
+        catGames++;
+        document.getElementById("cat-games").innerText = catGames;
         gameOver = true;
     }
 }
